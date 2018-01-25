@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125193034) do
+ActiveRecord::Schema.define(version: 20180125194024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "addresses_purchases", id: false, force: :cascade do |t|
+    t.bigint "address_id", null: false
+    t.bigint "purchase_id", null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.float "price"
+    t.float "shipment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "role"
@@ -30,5 +50,8 @@ ActiveRecord::Schema.define(version: 20180125193034) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "addresses_purchases", "addresses"
+  add_foreign_key "addresses_purchases", "purchases"
+  add_foreign_key "purchases", "users"
   add_foreign_key "users", "roles"
 end
