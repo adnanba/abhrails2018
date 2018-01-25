@@ -10,17 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125195745) do
+ActiveRecord::Schema.define(version: 20180125201143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "address_types", force: :cascade do |t|
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "city_id"
+    t.bigint "address_type_id"
+    t.index ["address_type_id"], name: "index_addresses_on_address_type_id"
     t.index ["city_id"], name: "index_addresses_on_city_id"
+  end
+
+  create_table "addresses_people", id: false, force: :cascade do |t|
+    t.bigint "address_id", null: false
+    t.bigint "person_id", null: false
   end
 
   create_table "addresses_purchases", id: false, force: :cascade do |t|
@@ -40,6 +53,14 @@ ActiveRecord::Schema.define(version: 20180125195745) do
   create_table "countries", force: :cascade do |t|
     t.string "country"
     t.string "region"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "telephone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,7 +89,10 @@ ActiveRecord::Schema.define(version: 20180125195745) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "addresses", "address_types"
   add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses_people", "addresses"
+  add_foreign_key "addresses_people", "people"
   add_foreign_key "addresses_purchases", "addresses"
   add_foreign_key "addresses_purchases", "purchases"
   add_foreign_key "cities", "countries"
