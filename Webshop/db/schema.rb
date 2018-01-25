@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125201955) do
+ActiveRecord::Schema.define(version: 20180125202926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(version: 20180125201955) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "purchase_details", force: :cascade do |t|
+    t.string "shoe_quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "shoe_id"
+    t.bigint "purchase_id"
+    t.index ["purchase_id"], name: "index_purchase_details_on_purchase_id"
+    t.index ["shoe_id"], name: "index_purchase_details_on_shoe_id"
+  end
+
   create_table "purchases", force: :cascade do |t|
     t.float "price"
     t.float "shipment"
@@ -130,6 +140,8 @@ ActiveRecord::Schema.define(version: 20180125201955) do
   add_foreign_key "addresses_purchases", "addresses"
   add_foreign_key "addresses_purchases", "purchases"
   add_foreign_key "cities", "countries"
+  add_foreign_key "purchase_details", "purchases"
+  add_foreign_key "purchase_details", "shoes"
   add_foreign_key "purchases", "users"
   add_foreign_key "shoes", "brands"
   add_foreign_key "shoes", "colors"
