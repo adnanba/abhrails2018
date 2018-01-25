@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125201143) do
+ActiveRecord::Schema.define(version: 20180125201955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,12 @@ ActiveRecord::Schema.define(version: 20180125201143) do
     t.bigint "purchase_id", null: false
   end
 
+  create_table "brands", force: :cascade do |t|
+    t.string "brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string "city"
     t.string "zip_code"
@@ -48,6 +54,12 @@ ActiveRecord::Schema.define(version: 20180125201143) do
     t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "colors", force: :cascade do |t|
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -80,6 +92,28 @@ ActiveRecord::Schema.define(version: 20180125201143) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "shoes", force: :cascade do |t|
+    t.string "model"
+    t.text "description"
+    t.integer "size"
+    t.float "price"
+    t.boolean "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "style_id"
+    t.bigint "brand_id"
+    t.bigint "color_id"
+    t.index ["brand_id"], name: "index_shoes_on_brand_id"
+    t.index ["color_id"], name: "index_shoes_on_color_id"
+    t.index ["style_id"], name: "index_shoes_on_style_id"
+  end
+
+  create_table "styles", force: :cascade do |t|
+    t.string "style"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password"
@@ -97,5 +131,8 @@ ActiveRecord::Schema.define(version: 20180125201143) do
   add_foreign_key "addresses_purchases", "purchases"
   add_foreign_key "cities", "countries"
   add_foreign_key "purchases", "users"
+  add_foreign_key "shoes", "brands"
+  add_foreign_key "shoes", "colors"
+  add_foreign_key "shoes", "styles"
   add_foreign_key "users", "roles"
 end
