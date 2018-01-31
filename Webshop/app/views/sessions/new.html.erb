@@ -1,11 +1,17 @@
-<h1>Login</h1>
+Login to your account
+<%= link_to 'Create account', '/signup' %>
 
 <%= form_tag '/login' do %>
 
-  Email: <%= text_field_tag :email %>
+  EMAIL <br>
+  <%= text_field_tag :email %>
   <br>
-  Password: <%= password_field_tag :password %>
+  PASSWORD <br>
+  <%= password_field_tag :password %>
   <br>
-  <%= submit_tag "Submit" %>
+  <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+  REMEMBER ME
+  <%= submit_tag "LOGIN" %>
+  
 
 <% end %>

@@ -1,13 +1,18 @@
-<h1>Signup!</h1>
+Create your account!
+<%= link_to 'Login to your account', '/login' %>
 
-<%= form_for :user, url: '/users' do |f| %>
+<%= form_with scope: :user, url: '/users' do |f| %>
 
-  Email: <%= f.text_field :email %>
+  EMAIL <br> 
+  <%= f.text_field :email %>
   <br>
-  Password: <%= f.password_field :password %>
+  PASSWORD <br> 
+  <%= f.password_field :password %>
   <br>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
+  PASSWORD CONFIRMATION <br> 
+  <%= f.password_field :password_confirmation %>
   <br>
-  <%= f.submit "Submit" %>
+  <%= f.submit "CREATE ACCOUNT" %>
 
 <% end %>
+

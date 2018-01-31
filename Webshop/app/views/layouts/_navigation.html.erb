@@ -1,0 +1,13 @@
+<ul class="nav">
+  <li><%= link_to 'ŽENSKA OBUĆA' %></li>
+  <li><%= link_to 'MUŠKA OBUĆA' %></li>
+  <li><%= link_to 'DJEČIJA OBUĆA' %></li>
+  <li><%= link_to 'SPORTSKA OBUĆA' %></li>
+
+  <% if current_user %>
+    <%= current_user.email %> | <%= link_to "Logout", '/logout' %>
+  <% else %>
+    <%= link_to 'LOGIN', '/login' %> | <%= link_to 'REGISTER', '/signup' %>
+  <% end %>
+  <%= render 'layouts/navigation_links' %>
+</ul>

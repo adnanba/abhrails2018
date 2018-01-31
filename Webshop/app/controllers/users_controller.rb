@@ -1,15 +1,15 @@
 class UsersController < ApplicationController
     def new
+        @user = User.new
     end
 
     def create
-        role = Role.find_by role: "Normal User"
-        user =  role.users.new(user_params)
-        if user.save
-            session[:user_id] = user.id
-            redirect_to '/'
+        @role = Role.find_by role: "Normal User"
+        @user =  @role.users.new(user_params)
+        if @user.save
+            redirect_to '/login'
         else
-            redirect_to '/signup'
+            render "new"
         end
     end
 
