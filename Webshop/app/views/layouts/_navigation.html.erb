@@ -3,13 +3,15 @@
     <div class="row">
       <div class="col-xs-8 col-xs-offset-2">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Home</a>
+          <%= link_to "abhShoes", '/', class: "navbar-brand" %>
         </div>
 
         <span class="pull-right">
           <% if current_user %>
             <div class="navbar-header">
-              <%= current_user.email %> | <%= link_to "Logout", '/logout' %>
+              <p class="navbar-brand"> <%= current_user.email %> </p>
+              <p class="navbar-brand"> | </p>
+              <%= link_to "Logout", '/logout', class: "navbar-brand" %>
             </div>
           <% else %>
             <div class="navbar-header">
@@ -24,18 +26,3 @@
   </div>
 </nav>
 
-<!--
-<ul class="nav">
-  <li><%= link_to 'ŽENSKA OBUĆA' %></li>
-  <li><%= link_to 'MUŠKA OBUĆA' %></li>
-  <li><%= link_to 'DJEČIJA OBUĆA' %></li>
-  <li><%= link_to 'SPORTSKA OBUĆA' %></li>
-
-  <% if current_user %>
-    <%= current_user.email %> | <%= link_to "Logout", '/logout' %>
-  <% else %>
-    <%= link_to 'LOGIN', '/login' %> | <%= link_to 'REGISTER', '/signup' %>
-  <% end %>
-  <%= render 'layouts/navigation_links' %>
-</ul>
--->
