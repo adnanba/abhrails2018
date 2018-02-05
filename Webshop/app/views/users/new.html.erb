@@ -1,32 +1,28 @@
-Create your account!
-<%= link_to 'Login to your account', '/login' %>
+<div id="formContainer" class="container">
+  <div class="row"> 
+    <div class="col-xs-4 col-xs-offset-4">
+      Create your account!
+      <span class="pull-right">
+        <%= link_to 'Login to your account', '/login' %>
+      </span>
+      <div>
+        <%= form_with scope: :user, url: '/users' do |f| %>
+          <div id="form" class="form-group">              
+            EMAIL <br> 
+            <%= f.text_field :email, class: "form-control" %>
+            <br>
+            PASSWORD <br> 
+            <%= f.password_field :password, id: "password", class: "form-control" %>
+            <br>
+            PASSWORD CONFIRMATION <br> 
+            <%= f.password_field :password_confirmation, id: "password", class: "form-control" %>
+          </div>
 
-<%= form_with scope: :user, url: '/users' do |f| %>
-
-  <% if @user && @user.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@user.errors.count, "error") %> prohibited
-        this article from being saved:
-      </h2>
-      <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+          <span class="pull-right">
+            <%= f.submit "CREATE ACCOUNT", id: "formButton", class: "btn btn-success" %>
+          </span>
         <% end %>
-      </ul>
+      </div>
     </div>
-  <% end %>
-
-  EMAIL <br> 
-  <%= f.text_field :email %>
-  <br>
-  PASSWORD <br> 
-  <%= f.password_field :password %>
-  <br>
-  PASSWORD CONFIRMATION <br> 
-  <%= f.password_field :password_confirmation %>
-  <br>
-  <%= f.submit "CREATE ACCOUNT" %>
-
-<% end %>
-
+  </div>
+</div>

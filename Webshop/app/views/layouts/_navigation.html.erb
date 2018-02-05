@@ -1,3 +1,30 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Home</a>
+        </div>
+
+        <span class="pull-right">
+          <% if current_user %>
+            <div class="navbar-header">
+              <%= current_user.email %> | <%= link_to "Logout", '/logout' %>
+            </div>
+          <% else %>
+            <div class="navbar-header">
+              <%= link_to 'LOGIN', '/login', class: "navbar-brand" %>  
+              <p class="navbar-brand"> | </p>
+              <%= link_to 'REGISTER', '/signup', class: "navbar-brand" %>
+            </div>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--
 <ul class="nav">
   <li><%= link_to 'ŽENSKA OBUĆA' %></li>
   <li><%= link_to 'MUŠKA OBUĆA' %></li>
@@ -11,3 +38,4 @@
   <% end %>
   <%= render 'layouts/navigation_links' %>
 </ul>
+-->
