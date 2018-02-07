@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130202723) do
+ActiveRecord::Schema.define(version: 20180206091512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,12 @@ ActiveRecord::Schema.define(version: 20180130202723) do
 
   create_table "brands", force: :cascade do |t|
     t.string "brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -107,13 +113,15 @@ ActiveRecord::Schema.define(version: 20180130202723) do
     t.text "description"
     t.integer "size"
     t.float "price"
-    t.boolean "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "style_id"
     t.bigint "brand_id"
     t.bigint "color_id"
+    t.bigint "category_id"
+    t.string "photo_url"
     t.index ["brand_id"], name: "index_shoes_on_brand_id"
+    t.index ["category_id"], name: "index_shoes_on_category_id"
     t.index ["color_id"], name: "index_shoes_on_color_id"
     t.index ["style_id"], name: "index_shoes_on_style_id"
   end
@@ -145,6 +153,7 @@ ActiveRecord::Schema.define(version: 20180130202723) do
   add_foreign_key "purchase_details", "shoes"
   add_foreign_key "purchases", "users"
   add_foreign_key "shoes", "brands"
+  add_foreign_key "shoes", "categories"
   add_foreign_key "shoes", "colors"
   add_foreign_key "shoes", "styles"
   add_foreign_key "users", "roles"

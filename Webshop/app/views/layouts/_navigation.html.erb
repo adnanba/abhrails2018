@@ -5,6 +5,11 @@
         <div class="navbar-header">
           <%= link_to "abhShoes", '/', class: "navbar-brand" %>
         </div>
+        <%= Category.find_each do |category| %>
+          <div class="navbar-header">
+            <%= link_to category.category.upcase, "/categories/#{category.id}", id: "navCategory", class: "navbar-brand" %>
+          </div>
+        <% end %>
 
         <span class="pull-right">
           <% if current_user %>

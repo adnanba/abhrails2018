@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :users, :sessions, :shoes
+  resources :users, :sessions, :shoes, :categories
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

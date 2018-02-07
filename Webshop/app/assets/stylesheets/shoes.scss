@@ -1,3 +1,61 @@
 // Place all the styles related to the Shoes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#shoe-title {
+    font-size: 18px;
+}
+
+#shoe-description {
+    font-size: 12px;
+}
+
+#shoe-similar {
+    margin-top: 75px;
+    p {
+        margin: 0 auto;
+        text-align: center;
+        width: 20%;
+    }
+    table {
+        margin-top: 10px;
+    }
+}
+
+#shoe-form-div {
+    margin-top: 20px;
+    .row {
+        width: 100%;
+        margin: 0;
+    }
+    .col {
+        padding: 0;
+    }
+    .form-control {
+        display: inline;
+    }
+    #shoe-form-select {
+        width: 90%;
+    }
+    #shoe-form-text-field {
+        text-align: center;
+        width: 100%;
+    }
+    #shoe-form-table {
+        border-collapse: collapse;
+        width: 60%;
+
+        #shoe-form-row-btn {
+
+        }
+        .shoe-form-col-1 {
+            width: 80%;
+        }
+        .shoe-form-col-2 {
+            width: 20%;
+        }
+        .shoe-form-col-3 {
+            width: 50%;
+        }
+    }
+}

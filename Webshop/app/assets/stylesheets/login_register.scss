@@ -1,12 +1,14 @@
+@import "colors";
+
 #formContainer {
-    color: #555555;
+    color: $darkGray;
     margin-top: 75px;
 }
 
 #form {
-    background: #f2f2f2;
+    background: $lightGray;
     border: 1px;
-    border-color: #e0e0e0;
+    border-color: $lightGray;
     border-radius: 5px;
     border-style: solid;
     font-size: 12px;
@@ -15,14 +17,10 @@
     padding: 7%;
 }
 
-//#link:link {
-  //  color: #e7d68e;
-//}
-
 #formButton {
-    color: white;
-    background: black;
-    border-color: black;
+    color: $white;
+    background: $almostBlack;
+    border-color: $almostBlack;
 }
 
 #password {
@@ -31,6 +29,5 @@
 
 #rememberMe {
     font-size: 10px;
-    margin-top: -5px;
 }
 
