@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206091512) do
+ActiveRecord::Schema.define(version: 20180213214922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,35 @@ ActiveRecord::Schema.define(version: 20180206091512) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "shoe_id"
+    t.bigint "order_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "price"
+    t.integer "size"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["shoe_id"], name: "index_order_items_on_shoe_id"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.float "subtotal"
+    t.float "shipping"
+    t.bigint "order_status_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "name"
     t.string "surname"
@@ -83,35 +112,26 @@ ActiveRecord::Schema.define(version: 20180206091512) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "purchase_details", force: :cascade do |t|
-    t.string "shoe_quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "shoe_id"
-    t.bigint "purchase_id"
-    t.index ["purchase_id"], name: "index_purchase_details_on_purchase_id"
-    t.index ["shoe_id"], name: "index_purchase_details_on_shoe_id"
-  end
-
-  create_table "purchases", force: :cascade do |t|
-    t.float "price"
-    t.float "shipment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_purchases_on_user_id"
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "shoe_sizes", force: :cascade do |t|
+    t.integer "size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shoe_sizes_shoes", id: false, force: :cascade do |t|
+    t.bigint "shoe_size_id", null: false
+    t.bigint "shoe_id", null: false
+  end
+
   create_table "shoes", force: :cascade do |t|
     t.string "model"
     t.text "description"
-    t.integer "size"
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -147,11 +167,13 @@ ActiveRecord::Schema.define(version: 20180206091512) do
   add_foreign_key "addresses_people", "addresses"
   add_foreign_key "addresses_people", "people"
   add_foreign_key "addresses_purchases", "addresses"
-  add_foreign_key "addresses_purchases", "purchases"
   add_foreign_key "cities", "countries"
-  add_foreign_key "purchase_details", "purchases"
-  add_foreign_key "purchase_details", "shoes"
-  add_foreign_key "purchases", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "shoes"
+  add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "users"
+  add_foreign_key "shoe_sizes_shoes", "shoe_sizes"
+  add_foreign_key "shoe_sizes_shoes", "shoes"
   add_foreign_key "shoes", "brands"
   add_foreign_key "shoes", "categories"
   add_foreign_key "shoes", "colors"
